@@ -122,6 +122,7 @@ function fitCameraToObject(object) {
     onAnimate = false;
     FitCam = true;
     controls.enableZoom = false;
+    controls.enablePan = false;
     INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
     document.body.classList.add('disable-input');
     document.getElementById("HomeButton").style.display = "block";
@@ -198,6 +199,7 @@ function Mainmenu() {
             document.body.classList.remove('disable-input');
             FitCam = false;
             controls.enableZoom = true;
+            controls.enablePan = true;
           }
 
           // Ensure that controls are updated during the animation
