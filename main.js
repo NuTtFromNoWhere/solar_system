@@ -32,6 +32,7 @@ const sunTexture = textureLoader.load("./sun_texture.jpg");
 const mercuryTexture = textureLoader.load("./8k_mercury.jpg");
 const venusTexture = textureLoader.load("./8k_venus_surface.jpg");
 const earthTexture = textureLoader.load("./8k_earth_daymap.jpg");
+const earthnigthTexture = textureLoader.load("./8k_earth_nightmap.jpg");
 const earthmoonTexture = textureLoader.load("./moon_txt1k.jpg");
 const marsTexture = textureLoader.load("./8k_mars.jpg");
 const jupiterTexture = textureLoader.load("./8k_jupiter.jpg");
@@ -101,7 +102,6 @@ function updateRaycaster() {
 
         window.addEventListener("click", function (e) {
           if (INTERSECTED && FitCam === false) {
-            
             fitCameraToObject(INTERSECTED);
           }
         });
@@ -128,49 +128,51 @@ function fitCameraToObject(object) {
     document.getElementById("HomeButton").style.display = "block";
     document.getElementById("myButton").style.display = "none";
 
-
     const boundingBox = new THREE.Box3().setFromObject(object);
 
-    const objectSize = boundingBox.getSize(new THREE.Vector3());
-    
-
-    // Ensure the camera looks at the calculated center
-    var target = new THREE.Vector3(); // create once an reuse it
+    var target = new THREE.Vector3();
     object.getWorldPosition(target);
 
     // Camera zoom animation
     const startPosition = camera.position.clone();
-    const CamTraget = target.clone(); 
-    CamTraget.multiplyScalar(0.8);
+    let CamTraget;
+    if (INTERSECTED.name === "Sun") {
+        CamTraget = new THREE.Vector3(0, 0, 100);
+    } else {
+        CamTraget = target.clone();
+    }
+
+    CamTraget.multiplyScalar(0.85);
     const duration = 1000;
 
     let startTime;
 
-      function animateCamera(time) {
+    function animateCamera(time) {
         if (!startTime) startTime = time;
 
-        const progress = Math.min((time - startTime) / duration, 1);
+        const progress = Math.min((time - startTime) / duration, 1);              
         camera.position.lerpVectors(startPosition, CamTraget, progress);
         controls.target.set(target.x, target.y, target.z);
         if (progress < 1) {
-          requestAnimationFrame(animateCamera);
+            requestAnimationFrame(animateCamera);
         } else {
-          controls.target.set(target.x, target.y, target.z);
-          document.body.classList.remove('disable-input');
+            controls.target.set(target.x, target.y, target.z);
+            document.body.classList.remove('disable-input');
         }
 
         controls.update();
     }
 
     console.log(
-      "After fitCameraToObject - Camera Position:",camera.position.clone(),
-      "LookAt:",target
+        "After fitCameraToObject - Camera Position:", camera.position.clone(),
+        "LookAt:", target,
+        "going to", INTERSECTED,
     );
 
     requestAnimationFrame(animateCamera);
     Mainmenu();
-  
 }
+
 
 
 function Mainmenu() {
@@ -259,8 +261,8 @@ scene.add(ambientLight);
 // Create a sun
 const sunGeometry = new THREE.SphereGeometry(30, 64, 64);
 const sunMaterial = new THREE.MeshStandardMaterial({ map: sunTexture, emissive:0xffffff ,emissiveMap:sunTexture, emissiveIntensity: 1  });
-
 const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+sun.name = "Sun";
 scene.add(sun);
 
 var pointLight = new THREE.PointLight(0xffffff, 1, 1000);
@@ -274,6 +276,7 @@ const mercuryMaterial = new THREE.MeshStandardMaterial({
 });
 const mecuryOrbit = new THREE.Object3D();
 const mercury = new THREE.Mesh(mercuryGeometry, mercuryMaterial);
+mercury.name = "Mercury";
 mercury.position.set(50, 0, 0);
 scene.add(mecuryOrbit);
 mecuryOrbit.add(mercury);
@@ -289,6 +292,7 @@ const venusMaterial = new THREE.MeshStandardMaterial({
 });
 const venusOrbit = new THREE.Object3D();
 const venus = new THREE.Mesh(venusGeometry, venusMaterial);
+venus.name = "Venus";
 venus.position.set(100, 0, 0);
 venus.rotation.set(3.09, 0, 0); // radian
 scene.add(venusOrbit);
@@ -301,10 +305,12 @@ const venusspinspeed = -0.00931;
 const earthGeometry = new THREE.SphereGeometry(5, 32, 32);
 const earthMaterial = new THREE.MeshStandardMaterial({
   map: earthTexture,
-  emissiveMap: earthTexture,
+  emissive:0x5C5C5C,
+  emissiveMap: earthnigthTexture,
 });
 const earthOrbit = new THREE.Object3D();
 const earth = new THREE.Mesh(earthGeometry, earthMaterial);
+earth.name = "Earth";
 earth.position.set(150, 0, 0);
 earth.rotation.set(0.39, 0, 0);
 scene.add(earthOrbit);
@@ -320,6 +326,7 @@ const earthmoonMaterial = new THREE.MeshStandardMaterial({
 });
 const earthmoonOrbit = new THREE.Object3D();
 const earthmoon = new THREE.Mesh(earthmoonGeometry, earthmoonMaterial);
+earthmoon.name = "EarthMoon";
 earthmoon.position.set(15, 0, 0);
 earth.add(earthmoonOrbit);
 earthmoonOrbit.add(earthmoon);
@@ -334,6 +341,7 @@ const marsMaterial = new THREE.MeshStandardMaterial({
 });
 const marsOrbit = new THREE.Object3D();
 const mars = new THREE.Mesh(marsGeometry, marsMaterial);
+mars.name = "Mars";
 mars.position.set(200, 0, 0);
 scene.add(marsOrbit);
 marsOrbit.add(mars);
@@ -349,6 +357,7 @@ const jupiterMaterial = new THREE.MeshStandardMaterial({
 });
 const jupiterOrbit = new THREE.Object3D();
 const jupiter = new THREE.Mesh(jupiterGeometry, jupiterMaterial);
+jupiter.name = "Jupiter";
 jupiter.position.set(300, 0, 0);
 scene.add(jupiterOrbit);
 jupiterOrbit.add(jupiter);
@@ -364,6 +373,7 @@ const saturnMaterial = new THREE.MeshStandardMaterial({
 });
 const saturnOrbit = new THREE.Object3D();
 const saturn = new THREE.Mesh(saturnGeometry, saturnMaterial);
+saturn.name = "Saturn"
 saturn.position.set(400, 0, 0);
 scene.add(saturnOrbit);
 saturnOrbit.add(saturn);
@@ -379,6 +389,7 @@ const saturnringMaterial = new THREE.MeshStandardMaterial({
   transparent: true,
 });
 const saturnrings = new THREE.Mesh(saturnringGeometry, saturnringMaterial);
+saturnrings.name = "Saturnrings"
 saturnrings.rotation.set(1, 0, 0);
 saturn.add(saturnrings);
 
@@ -390,6 +401,7 @@ const uranusMaterial = new THREE.MeshStandardMaterial({
 });
 const uranusOrbit = new THREE.Object3D();
 const uranus = new THREE.Mesh(uranusGeometry, uranusMaterial);
+uranus.name = "Uranus"
 uranus.position.set(500, 0, 0);
 scene.add(uranusOrbit);
 uranusOrbit.add(uranus);
@@ -405,6 +417,7 @@ const uranusringMaterial = new THREE.MeshStandardMaterial({
   transparent: true,
 });
 const uranusrings = new THREE.Mesh(uranusringGeometry, uranusringMaterial);
+uranusrings.name = "Uranusrings"
 uranusrings.rotation.set(0.2, 0, 0);
 uranus.add(uranusrings);
 
@@ -417,6 +430,7 @@ const neptuneMaterial = new THREE.MeshStandardMaterial({
 
 const neptuneOrbit = new THREE.Object3D();
 const neptune = new THREE.Mesh(neptuneGeometry, neptuneMaterial);
+neptune.name = "Neptune"
 neptune.position.set(600, 0, 0);
 scene.add(neptuneOrbit);
 neptuneOrbit.add(neptune);
