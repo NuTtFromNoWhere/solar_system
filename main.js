@@ -58,7 +58,7 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.z = 700;
 
 
-
+// nigger
 // Create a renderer
 
 const raycaster = new THREE.Raycaster();
