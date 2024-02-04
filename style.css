@@ -18,6 +18,28 @@ body {
     align-items: center;
 }
 
+#start {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background-color: #3498db;
+    padding: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    border-radius: 10px;
+    font-size: large;
+    font-weight: bold;
+    border: none;
+    color: white;
+    transition: 0.1s;
+    display: none;
+}
+
+#start:hover {
+    background-color: #226a9a;
+}
+
+
 label {
     color: white;
     font-size: 2rem;
@@ -214,4 +236,119 @@ cursor: pointer;
     color: #fff;
     border: none;
     cursor: pointer;
+}
+
+.popup {
+    display: none;
+}
+#Mercury{
+    display: none;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgb(1, 0, 20) 0%, rgba(0,0,0,0.69) 65%, rgba(0,0,0,0) 100%);
+    height: 100%;
+    width: 40%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+}
+#mercury{
+    
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+
+}
+
+#Venus{
+    display: none;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgb(1, 0, 20) 0%, rgba(0,0,0,0.69) 65%, rgba(0,0,0,0) 100%);
+    height: 100%;
+    width: 40%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+}
+
+#Earth{
+    display: none;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgb(1, 0, 20) 0%, rgba(0,0,0,0.69) 65%, rgba(0,0,0,0) 100%);
+    height: 100%;
+    width: 40%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+}
+
+#Mars{
+    display: none;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgb(1, 0, 20) 0%, rgba(0,0,0,0.69) 65%, rgba(0,0,0,0) 100%);
+    height: 100%;
+    width: 40%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+}
+
+#Jupiter{
+    display: none;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgb(1, 0, 20) 0%, rgba(0,0,0,0.69) 65%, rgba(0,0,0,0) 100%);
+    height: 100%;
+    width: 40%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+}
+
+#Saturn{
+    display: none;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgb(1, 0, 20) 0%, rgba(0,0,0,0.69) 65%, rgba(0,0,0,0) 100%);
+    height: 100%;
+    width: 40%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+}
+
+#Uranus{
+    display: none;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgb(1, 0, 20) 0%, rgba(0,0,0,0.69) 65%, rgba(0,0,0,0) 100%);
+    height: 100%;
+    width: 40%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+}
+
+#Neptune{
+    display: none;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgb(1, 0, 20) 0%, rgba(0,0,0,0.69) 65%, rgba(0,0,0,0) 100%);
+    height: 100%;
+    width: 40%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+}
+
+#moon {
+    display: none; 
+}
+#Pluto {
+    display: none; 
+}
+#Sun {
+    display: none;
+}
+
+#lockshit {
+    display: block;
+    height: 100vh;
+    width: 100%;
+    pointer-events: none;
 }
